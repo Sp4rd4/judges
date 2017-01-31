@@ -20,7 +20,6 @@ RUN         set -ex && \
             sed -i "s|STEWARD_TOKEN|$STEWARD_TOKEN|g" /deploy.sh && \
             sed -i "s|STEWARD_JOB|$STEWARD_JOB|g" /deploy.sh
 
-VOLUME      /judges
 EXPOSE      9000
 
 CMD  webhook -verbose -hooks /judges/hooks.json
