@@ -1,8 +1,9 @@
 #!/bin/bash
 
 MSG=$(
+  npm install 2>&1 && \
   cd /judges 2>&1 && git pull https://github.com/automaidan/judges.git 2>&1 && \
-  cd scraper 2>&1 && npm run scrap 2>&1 && \
+  cd scraper 2>&1 && npm install 2>&1 && npm run scrap 2>&1 && \
   git add . 2>&1 && git commit -m "Rescrap" 2>&1 && \
   npm run deploy:frontend 2>&1
 )
