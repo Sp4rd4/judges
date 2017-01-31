@@ -1,13 +1,13 @@
 #!/bin/bash
+curl -H "X-StewardToken: STEWARD_TOKEN" https://steward.io/j/STEWARD_JOB/start
+npm install && \
+cd /judges && git pull https://github.com/automaidan/judges.git && \
+cd scraper && npm install && npm run scrap && \
+git add . && git commit -m "Rescrap" && \
+cd .. &&  npm run deploy:frontend
 
-MSG=$(
-  npm install 2>&1 && \
-  cd /judges 2>&1 && git pull https://github.com/automaidan/judges.git 2>&1 && \
-  cd scraper 2>&1 && npm install 2>&1 && npm run scrap 2>&1 && \
-  git add . 2>&1 && git commit -m "Rescrap" 2>&1 && \
-  npm run deploy:frontend 2>&1
-)
-
-if [ $? -ne 0 ]; then
-    curl -d "m=$MSG" SNITCH_URL
+if [ $? -eq 0 ]; then
+  curl -H "X-StewardToken: STEWARD_TOKEN" https://steward.io/j/STEWARD_JOB/end
+else
+  curl -H "X-StewardToken: STEWARD_TOKEN" https://steward.io/j/STEWARD_JOB/failed
 fi

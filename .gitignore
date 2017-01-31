@@ -9,4 +9,3 @@ dump/images/original/
 *.tmp*
 .idea
 npm-debug.log
-.env
